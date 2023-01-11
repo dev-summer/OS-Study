@@ -75,7 +75,7 @@ hello, I am parent of 3577 (rc_wait:3577) (pid:3576)
 부모 프로세스가 `wait()`을 호출해서 자식 프로세스의 실행이 끝날 때까지 부모 프로세스의 실행을 미룬다. 자식 프로세스가 끝나면 `wait()`은 부모 프로세스로 돌아간다.
 - 반드시 `child`가 먼저 실행되는 것을 보장할 수 있다. 만약 `parent`가 먼저 실행될 경우, `wiat()`을 호출해서 `child`가 실행되고 exit할 때까지 기다린다.
 
-### 5.3 `exec()` System Call
+## 5.3 `exec()` System Call
 
 `exec()`을 호출하는 프로그램과 다른 프로그램을 실행하고 싶을 때 사용하는 시스템 호출.
 - `fork()`를 호출하면 같은 프로그램이 하나 더 실행된다.
@@ -121,7 +121,7 @@ hello, I am parent of 3868 (rc_wait:3868) (pid:3867)
 - `wc`라는 프로그램은 소스파일 `p3.c`에 존재하고, 파일이 몇 줄, 몇 단어, 몇 바이트로 이루어졌는지를 알려준다.
 - `exec()`에게 executable(실행 가능한 것? `wc`)의 이름과 인자(`p3.c`)를 주면, 그 executable에서 코드와 정적 데이터를 로드하고, 현재의 코드 세그먼트와 현재의 정적 데이터를 그걸로 덮어쓴다. 그리고 프로그램의 힙, 스택과 같은 메모리 공간이 재초기화(re-initialize)된다. 그 다음에 OS는 인자를 해당 프로세스의 `argv`로 전달해서 그 프로그램을 실행한다. 그러므로, **새로운 프로세스를 생성하지 않고**, 현재 실행중인 프로그램(`p3`)을 다른 실행중인 프로그램(`wc`)으로 변형시킨다(transform). 자식 프로세스의 `exec()` 후에는 `p3.c`가 실행된 적이 없는 것과 같다. `exec()`를 성공적으로 호춣하면 return 하지 않는다.
 
-### 5.4 Motivating the API
+## 5.4 Motivating the API
 
 `fork()`랑 `exec()`이 분리되어 있기 때문에, `fork()` 다음 & `exec()` 이전에 오는 코드를 shell이 실행할 수 있다.
 - shell은 사용자 프로그램이다(shell에는 tcsh, bash, zsh 등이 있음).
@@ -131,7 +131,7 @@ hello, I am parent of 3868 (rc_wait:3868) (pid:3867)
 
 `pipe()` 시스템 호출은 한 프로세스의 output이 하나의 in-kerner pipe(예: queue)에 연결되고, 다른 프로세스의 input이 그 pipe에 연결된다. 그러므로 한 프로세스의 output이 다음 프로세스의 input으로 매끄럽게 연결되어 사용할 수 있고, 커맨드 chain으로 연결되어 chain으로 사용할 수 있다.
 
-### 5.5 Process Control and Users
+## 5.5 Process Control and Users
 
 `kill()` 시스템 호출: 프로세스에게 **시그널**을 보내기 위해 사용한다 (pause, die 등).
 
@@ -143,3 +143,34 @@ ctrl + z: 실행중인 프로세스에 `SIGSTP`(stop) 시그널을 보내서 해
 - 프로세스에 시그널을 보낼 수 있는 주체는 무엇이 있고, 보낼 수 없는 주체는 무엇이 있을까?
     - 현대의 시스템은 **사용자**의 개념을 포함하고 있으며, 사용자가 자격을 생성하기 위해 비밀번호를 입력한 후 로그인해서 시스템 리소스에 대한 접근을 얻는다. 그 후 사용자는 프로세스를 시작하고, 프로세스에 대한 모든 control을 할 수 있게 된다(pause, kill, ...).
     - 사용자는 일반적으로 자신의 프로세스만 컨트롤 할 수 있으며, 각 사용자와 사용자의 프로세스에게 CPU, 메모리, 디스크와 같은 리소스를 나눠주는 것은 OS의 역할이다.
+
+---
+
+## Homework
+
+### 4-1 `-R` 플래그를 사용하지 않은 경우
+`c`가 exit했을 때, `c`의 자식 프로세스들이 모두 `a`의 자식 프로세스가 된다.
+![image](https://user-images.githubusercontent.com/98260324/211704613-590bba56-5cfe-4759-bfae-0572f1d48501.png)
+
+### 4-2 `-R` 플래그를 사용한 경우
+`c`가 exit했을 때, `c`의 자식 프로세스들이 `c`의 부모 프로세스인 `b`의 자식 프로세스가 된다.
+![image](https://user-images.githubusercontent.com/98260324/211704754-a6faf5fa-9b97-42b4-9def-b022d2c35480.png)
+
+### 5 `-F` 플래그를 사용한 경우
+
+<img width="315" alt="image" src="https://user-images.githubusercontent.com/98260324/211723321-d9e72cde-86cd-45c7-ad21-4ddfb45043d2.png">
+
+### possible actions 1
+a forks b
+a forks c
+a forks d
+b exits
+d exits
+
+
+### possible actions 2
+a forks b
+b forks c
+b forks d
+b exits
+d exits
