@@ -22,6 +22,7 @@
 
 ## 7.3 First In, First Out (FIFO)
 
+= First Come First Served (FCFS)
 선입선출.
 먼저 도착한 작업의 수행시간이 길 경우, 평균 반환 시간이 커진다. 이것을 **Convoy Effect**라고 한다.
 - Convoy Effect: 상대적으로 자원이 적게 드는 프로세스가 자원이 많이 드는 프로세스보다 큐의 뒤에 위치하게 되는 것.
@@ -76,7 +77,7 @@ I/O가 완료되어 인터럽트가 발생하면, OS는 I/O를 발행한 프로�
     - response time = (0 + 1 + 2) / 3 = 1
     - turnaround time = (598 + 599 + 600) / 3
 
-4. when all workloads have same length or when all workloads arrive at the same time
+4. when all workloads have same length or when workloads arrive in increasing manner
 
 5. when the length of time slice is greater than or equal to the length of most time-consuming job
 
