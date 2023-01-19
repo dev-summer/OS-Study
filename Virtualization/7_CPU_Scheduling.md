@@ -81,5 +81,21 @@ I/O가 완료되어 인터럽트가 발생하면, OS는 I/O를 발행한 프로�
 5. when the length of time slice is greater than or equal to the length of most time-consuming job
 
 6. response time increases
+```
+python ./scheduler.py -p SJF -j 5 -l 200,100,200,300,100 -c
+```
+response time = 260, turnaround time = 440, wait time = 260
+
+```
+python ./scheduler.py -p SJF -j 5 -l 400,200,400,600,200 -c
+```
+response time = 520, turnaround time = 520, wait time = 520
+
+```
+python ./scheduler.py -p SJF -j 5 -l 400,300,500,300,200 -c
+```
+response time = 540, turnaround time = 880, wait time = 540
+
+→ given that all jobs arrive at the same time (at the beinning), response time = (new workload)/(previous workload)
 
 7. (0 + N + 2N + ... N * N) / N = (1 + 2 + ... + N)
