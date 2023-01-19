@@ -61,3 +61,25 @@ RR은 job을 **time slice(scheduling quantum)** 동안 실행한다. 한 time sl
 I/O 요청을 시작하는 job이 있을 경우, I/O가 진행되는 동안 그 job은 CPU를 사용하지 않는다. 이걸 I/O 작업이 완료될 때까지 **blocked** 되었다고 한다. blocked 된 동안에 스케줄러가 CPU에 다른 job을 스케줄링 해야 한다.
 I/O가 완료되어 인터럽트가 발생하면, OS는 I/O를 발행한 프로세스를 blocked 상태에서 ready 상태로 이동시킨다.
 ![](https://i.imgur.com/XGgkOcA.png)
+
+## Homework
+
+1. 3 jobs, length = 200
+    - SJF: response time = (0 + 200 + 400) / 3 = 200, turnaround time = (200 + 400 + 600) / 3 = 400
+    - FIFO: 동일함
+
+2. 3 jobs, length = 100, 200, 300
+    - SJF: response time = (0 + 100 + 300) / 3, turnaround time = (100 + 300 + 600) / 3
+    - FIFO: 동일함
+
+3. 3 jobs, length = 100, 200, 300, RR time slice = 1
+    - response time = (0 + 1 + 2) / 3 = 1
+    - turnaround time = (598 + 599 + 600) / 3
+
+4. when all workloads have same length or when all workloads arrive at the same time
+
+5. when the length of time slice is greater than or equal to the length of most time-consuming job
+
+6. response time increases
+
+7. (0 + N + 2N + ... N * N) / N = (1 + 2 + ... + N)
