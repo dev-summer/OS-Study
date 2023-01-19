@@ -99,4 +99,4 @@ response time = 540, turnaround time = 880, wait time = 540
 
 → given that all jobs arrive at the same time (at the beinning), response time = (new workload)/(previous workload)
 
-7. (0 + N + 2N + ... N * N) / N = (1 + 2 + ... + N)
+7. (0 + N + 2N + ... (N - 1) * N) * T / N = (1 + 2 + ... + (N - 1)) * T where T is the length of time slice
