@@ -75,7 +75,7 @@ I/O가 완료되어 인터럽트가 발생하면, OS는 I/O를 발행한 프로�
 
 3. 3 jobs, length = 100, 200, 300, RR time slice = 1
     - response time = (0 + 1 + 2) / 3 = 1
-    - turnaround time = (598 + 599 + 600) / 3
+    - turnaround time = (298 + 499 + 600) / 3
 
 4. when all workloads have same length or when workloads arrive in increasing manner
 
